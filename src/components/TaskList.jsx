@@ -9,7 +9,7 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
     <ul className="task-list">
       {tasks.map((task) => (
         <TaskItem
-          key={task.id} // unique key zaroori hai list rendering me
+          key={task.id} 
           task={task}
           onToggle={onToggle}
           onDelete={onDelete}

@@ -5,7 +5,7 @@ import TaskList from "./components/TaskList";
 
 const FILTERS = ["All", "Today", "Upcoming", "Completed"];
 const STORAGE_KEY = "aurex-react-tasks";
-const todayStr = () => new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD
+const todayStr = () => new Date().toLocaleDateString("en-CA"); 
 
 function loadTasks() {
   try {
@@ -16,11 +16,10 @@ function loadTasks() {
 }
 
 export default function App() {
-  // STATE lives here (parent) so all children can share it via props
+
   const [tasks, setTasks] = useState(loadTasks);
   const [filter, setFilter] = useState("All");
 
-  // Whenever tasks change, save to localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks]);
