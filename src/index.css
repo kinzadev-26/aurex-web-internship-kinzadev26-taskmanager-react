@@ -6,9 +6,7 @@
   --text: #f1f5f9;
   --muted: #8a94a6;
   --accent: #6b8aab;
-  --high: #f43f5e;
-  --medium: #3b82f6;
-  --low: #22c55e;
+  --danger: #f43f5e;
 }
 
 * {
@@ -23,12 +21,17 @@ body {
   font-family: "Inter", system-ui, sans-serif;
 }
 
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .app {
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 16px 48px;
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
 
 .header h1 {
@@ -42,93 +45,53 @@ body {
   margin-top: 4px;
 }
 
-.header small {
-  color: var(--muted);
-  display: block;
-  margin-top: 8px;
-}
-
-.card {
+.task-form,
+.filters,
+.task-list,
+.empty {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 16px;
 }
 
-.card h2 {
-  font-size: 1.1rem;
-  margin-bottom: 14px;
-}
-
-.card-head {
+.form-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 10px;
 }
 
-.card-head h2 {
-  margin-bottom: 14px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="time"],
-select {
+input[type="text"] {
+  flex: 1;
+  min-width: 0;
   background: var(--input);
   border: 1px solid var(--border);
   color: var(--text);
   padding: 12px;
   border-radius: 12px;
   font-size: 1rem;
-  width: 100%;
-}
-
-.task-form {
-  display: grid;
-  gap: 12px;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-@media (max-width: 520px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.error {
-  color: var(--high);
-  font-size: 0.9rem;
 }
 
 .primary-btn {
   background: linear-gradient(135deg, #5a7896, #7c9bb8);
   color: #fff;
   border: 0;
-  padding: 12px;
-  border-radius: 999px;
-  font-size: 1rem;
+  padding: 12px 20px;
+  border-radius: 12px;
   font-weight: 600;
-  cursor: pointer;
+  white-space: nowrap;
 }
 
-.link-btn {
-  background: none;
-  border: 0;
-  color: var(--accent);
-  cursor: pointer;
-  margin-bottom: 14px;
+.error {
+  color: var(--danger);
+  font-size: .9rem;
+  margin-top: 8px;
 }
 
 .filters {
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
 }
 
 .chip {
@@ -137,7 +100,6 @@ select {
   color: var(--muted);
   padding: 8px 16px;
   border-radius: 999px;
-  cursor: pointer;
 }
 
 .chip.active {
@@ -145,18 +107,27 @@ select {
   color: #fff;
 }
 
+.count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
 .task-list {
   list-style: none;
-  display: grid;
-  gap: 4px;
 }
 
 .task {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.task:last-child {
+  border-bottom: 0;
 }
 
 .task input[type="checkbox"] {
@@ -165,18 +136,10 @@ select {
   accent-color: var(--accent);
 }
 
-.task-info {
+.task-title {
   flex: 1;
-  display: grid;
-  gap: 2px;
-}
-
-.task-meta {
-  color: var(--muted);
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .task.done .task-title {
@@ -184,39 +147,50 @@ select {
   color: var(--muted);
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
+.edit-form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.dot.high {
-  background: var(--high);
+.edit-form input {
+  flex: 1;
+  min-width: 140px;
 }
 
-.dot.medium {
-  background: var(--medium);
+.task.editing {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
-.dot.low {
-  background: var(--low);
-}
-
-.del-btn {
-  background: none;
+.small-btn {
+  background: var(--input);
+  color: var(--text);
   border: 0;
-  color: var(--muted);
-  font-size: 1.1rem;
-  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: .9rem;
 }
 
-.del-btn:hover {
-  color: var(--high);
+.small-btn.save {
+  background: var(--accent);
+  color: #fff;
+}
+
+.small-btn.danger:hover {
+  background: var(--danger);
+  color: #fff;
 }
 
 .empty {
   color: var(--muted);
   text-align: center;
-  padding: 24px 0;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+  }
 }
